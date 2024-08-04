@@ -1,0 +1,26 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "backend for quizz game app",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc",
+        "start": "node dist/app.js",
+        "dev": "concurrently -k -n \"Typescript,Node\" -p \"[{name}]\" -c \"blue,green\" \"tsc --watch\" \"nodemon -r dotenv/config dist/app.js\" "
+    },
+    "author": "Erwan Soulas",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^22.1.0",
+        "nodemon": "^3.1.4",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4"
+    },
+    "dependencies": {
+        "@types/express": "^4.17.21",
+        "concurrently": "^8.2.2",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2"
+    }
+}
