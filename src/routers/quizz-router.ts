@@ -3,9 +3,9 @@ import { getAdditions, getMathQuestions, getMultiplications, getSubstractions } 
 
 const algebraRouter = Router();
 
-algebraRouter.get("/additions", getAdditions);
-algebraRouter.get("/substractions", getSubstractions);
-algebraRouter.get("/multiplications", getMultiplications);
+algebraRouter.get("/addition", getAdditions);
+algebraRouter.get("/soustraction", getSubstractions);
+algebraRouter.get("/multiplication", getMultiplications);
 algebraRouter.get("/math-questions", getMathQuestions);
 
 export default algebraRouter;
