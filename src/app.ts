@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { config } from "dotenv";
 import cors from "cors";
+import { initDb } from "./lib/data";
 
 config();
 
@@ -28,4 +29,5 @@ app.use("/algebra", algebraRouter);
 
 app.listen(port, () => {
     console.log(`Server démarré sur le port ${port}`);
+    initDb();
 })

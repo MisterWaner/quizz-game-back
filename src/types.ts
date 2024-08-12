@@ -5,8 +5,8 @@ export type Question = {
 }
 
 export type User = {
-    id: number;
-    username: string;
-    password: string;
-    score: number;
+    id?: number,
+    username: string,
+    password: string,
+    score: number,
 }
