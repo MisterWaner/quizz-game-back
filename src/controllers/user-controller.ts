@@ -171,6 +171,32 @@ async function updateUserUsername(req: Request, res: Response) {
     }
 }
 
+async function updateUserScore(req: Request, res: Response) {
+    try {
+        const { id, score } = req.body as { id: number, score: number };
+
+        const user = fetchUser(id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "Utilisateur introuvable",
+            });
+        }
+
+        if (score < 0) {
+            return res.status(400).send("Score invalide");
+        }
+
+        const updatedUser = db.prepare("UPDATE users SET score = ? WHERE id = ?").run(score, id);
+        return res.status(200).json({
+            message: "Score mis à jour avec succès",
+            updatedUser,
+        });
+    } catch (error) {
+        
+    }
+}
+
 function deleteUser(req: Request, res: Response) {
     try {
         const id = Number(req.params.id);
@@ -243,4 +269,4 @@ function deleteDailyUsers(req: Request, res: Response) {
     }
 }
 
-export { createUser, createDailyUser, getUsers, getUserById, updateUserUsername, deleteUser, deleteDailyUser, deleteDailyUsers };
+export { createUser, createDailyUser, getUsers, getUserById, updateUserUsername, updateUserScore, deleteUser, deleteDailyUser, deleteDailyUsers };
