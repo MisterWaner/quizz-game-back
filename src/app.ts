@@ -21,11 +21,13 @@ app.use(express.urlencoded({ extended: true }));
 
 /* Routes */
 import algebraRouter from "./routers/quizz-router";
+import userRouter from "./routers/user-router";
 
 app.get("/", (req: Request, res: Response) => {
     res.send("API démarée et fonctionnelle");
 });
 app.use("/algebra", algebraRouter);
+app.use("/users", userRouter);
 
 app.listen(port, () => {
     console.log(`Server démarré sur le port ${port}`);
