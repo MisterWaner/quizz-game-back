@@ -2,6 +2,12 @@ import express, { Request, Response } from "express";
 import { config } from "dotenv";
 import cors from "cors";
 import { initDb } from "./lib/data";
+import "./lib/score-tasks";
+
+import algebraRouter from "./routers/quizz-router";
+import userRouter from "./routers/user-router";
+import authRouter from "./routers/auth-router";
+import scoreRouter from "./routers/score-router";
 
 config();
 
@@ -20,11 +26,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /* Routes */
-import algebraRouter from "./routers/quizz-router";
-import userRouter from "./routers/user-router";
-import authRouter from "./routers/auth-router";
-import scoreRouter from "./routers/score-router";
-
 app.get("/", (req: Request, res: Response) => {
     res.send("API démarée et fonctionnelle");
 });

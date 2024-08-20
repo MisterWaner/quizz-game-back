@@ -173,7 +173,7 @@ async function updateUserUsername(req: Request, res: Response) {
 
 async function updateUserScore(req: Request, res: Response) {
     try {
-        const { id, score } = req.body as { id: number, score: number };
+        const { id, score } = req.body as { id: number; score: number };
 
         const user = fetchUser(id);
 
@@ -187,14 +187,14 @@ async function updateUserScore(req: Request, res: Response) {
             return res.status(400).send("Score invalide");
         }
 
-        const updatedUser = db.prepare("UPDATE users SET score = ? WHERE id = ?").run(score, id);
+        const updatedUser = db
+            .prepare("UPDATE users SET score = ? WHERE id = ?")
+            .run(score, id);
         return res.status(200).json({
             message: "Score mis à jour avec succès",
             updatedUser,
         });
-    } catch (error) {
-        
-    }
+    } catch (error) {}
 }
 
 function deleteUser(req: Request, res: Response) {
@@ -208,7 +208,10 @@ function deleteUser(req: Request, res: Response) {
             });
         }
 
-        db.prepare("DELETE FROM users WHERE id = ? AND isRegistered = ?").run(id, 1);
+        db.prepare("DELETE FROM users WHERE id = ? AND isRegistered = ?").run(
+            id,
+            1
+        );
 
         return res.status(200).json({
             message: "Utilisateur supprimé avec succès",
@@ -232,7 +235,10 @@ function deleteDailyUser(req: Request, res: Response) {
             });
         }
 
-        db.prepare("DELETE FROM users WHERE id = ? AND isRegistered = ?").run(id, 0);
+        db.prepare("DELETE FROM users WHERE id = ? AND isRegistered = ?").run(
+            id,
+            0
+        );
 
         return res.status(200).json({
             message: "Utilisateur supprimé avec succès",
@@ -256,7 +262,9 @@ function deleteDailyUsers(req: Request, res: Response) {
             });
         }
 
-        db.prepare("DELETE * FROM users WHERE isRegistered = ?").run(isRegistered);
+        db.prepare("DELETE * FROM users WHERE isRegistered = ?").run(
+            isRegistered
+        );
 
         return res.status(200).json({
             message: "Utilisateurs supprimés avec succès",
@@ -269,4 +277,16 @@ function deleteDailyUsers(req: Request, res: Response) {
     }
 }
 
-export { createUser, createDailyUser, getUsers, getUserById, updateUserUsername, updateUserScore, deleteUser, deleteDailyUser, deleteDailyUsers };
+export {
+    fetchUser,
+    fetchUsers,
+    createUser,
+    createDailyUser,
+    getUsers,
+    getUserById,
+    updateUserUsername,
+    updateUserScore,
+    deleteUser,
+    deleteDailyUser,
+    deleteDailyUsers,
+};
