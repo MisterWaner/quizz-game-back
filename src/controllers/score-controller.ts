@@ -38,7 +38,7 @@ function getUsersDailyScore(req: Request, res: Response) {
                 message: "Aucun utilisateur trouvé",
             });
         }
-        console.log(users);
+        
         return res.status(200).json(users);
     } catch (error) {
         return res.status(500).json({
@@ -57,7 +57,6 @@ function getUsersGlobalScore(req: Request, res: Response) {
                 message: "Aucun utilisateur trouvé",
             });
         }
-        console.log(users);
         return res.status(200).json(users);
     } catch (error) {
         return res.status(500).json({
@@ -76,7 +75,6 @@ function getTop5DailyScore(req: Request, res: Response) {
                 message: "Aucun utilisateur trouvé",
             });
         }
-        console.log(users);
         return res.status(200).json(users);
     } catch (error) {
         return res.status(500).json({
@@ -95,7 +93,6 @@ function getTop5GlobalScore(req: Request, res: Response) {
                 message: "Aucun utilisateur trouvé",
             });
         }
-        console.log(users);
         return res.status(200).json(users);
     } catch (error) {
         return res.status(500).json({

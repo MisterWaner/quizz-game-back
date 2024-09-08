@@ -28,7 +28,7 @@ async function createUser(req: Request, res: Response) {
             .get(username);
         if (userExists) {
             return res
-                .status(400)
+                .status(409)
                 .json({ message: "Ce nom d'utilisateur existe déjà" });
         }
 

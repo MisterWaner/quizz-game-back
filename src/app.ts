@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { config } from "dotenv";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { initDb } from "./lib/data";
 import "./lib/score-tasks";
 
@@ -24,6 +25,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 /* Routes */
 app.get("/", (req: Request, res: Response) => {
