@@ -173,9 +173,10 @@ async function updateUserUsername(req: Request, res: Response) {
 
 async function updateUserScore(req: Request, res: Response) {
     try {
-        const { id, score } = req.body as { id: number; score: number };
+        
+        const { score, userId } = req.body as { score: number; userId: number };
 
-        const user = fetchUser(id);
+        const user = fetchUser(userId);
 
         if (!user) {
             return res.status(404).json({
@@ -188,13 +189,16 @@ async function updateUserScore(req: Request, res: Response) {
         }
 
         const updatedUser = db
-            .prepare("UPDATE users SET score = ? WHERE id = ?")
-            .run(score, id);
+            .prepare("UPDATE users SET score = score + ? WHERE id = ?")
+            .run(score, userId);
         return res.status(200).json({
             message: "Score mis à jour avec succès",
             updatedUser,
         });
-    } catch (error) {}
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour du score", error);
+        return res.status(500).send("Erreur serveur");
+    }
 }
 
 function deleteUser(req: Request, res: Response) {

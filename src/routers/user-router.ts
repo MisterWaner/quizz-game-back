@@ -19,7 +19,7 @@ userRouter.get("/:id", verifyToken, getUserById);
 userRouter.post("/", createUser);
 userRouter.post("/daily", createDailyUser);
 userRouter.put("/:id", verifyToken, updateUserUsername);
-userRouter.put("/:id/score", updateUserScore);
+userRouter.put("/:userId/score", updateUserScore);
 userRouter.delete("/:id", verifyToken, deleteUser);
 userRouter.delete("/daily/:id", deleteDailyUser);
 
