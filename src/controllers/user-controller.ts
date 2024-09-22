@@ -55,40 +55,6 @@ async function createUser(req: Request, res: Response) {
     }
 }
 
-async function createDailyUser(req: Request, res: Response) {
-    try {
-        const { username } = req.body as DailyUser;
-        let isRegistered: number;
-
-        if (!username) {
-            return res.status(400).json({ message: "Missing parameters" });
-        }
-
-        const userExists = db
-            .prepare("SELECT * FROM users WHERE username = ?")
-            .get(username);
-        if (userExists) {
-            return res
-                .status(400)
-                .json({ message: "Ce nom d'utilisateur existe déjà" });
-        }
-        isRegistered = 0;
-
-        const dailyUser = db
-            .prepare("INSERT INTO users (username, isRegistered) VALUES (?, ?)")
-            .run(username, isRegistered);
-
-        return res
-            .status(201)
-            .json({ dailyUser, message: "Utilisateur créé avec succès" });
-    } catch (error) {
-        return res.status(500).json({
-            error,
-            message: "An error occurred while creating the user",
-        });
-    }
-}
-
 async function getUsers(req: Request, res: Response) {
     try {
         const users = fetchUsers();
@@ -173,7 +139,6 @@ async function updateUserUsername(req: Request, res: Response) {
 
 async function updateUserScore(req: Request, res: Response) {
     try {
-        
         const { score, userId } = req.body as { score: number; userId: number };
 
         const user = fetchUser(userId);
@@ -228,69 +193,14 @@ function deleteUser(req: Request, res: Response) {
     }
 }
 
-function deleteDailyUser(req: Request, res: Response) {
-    try {
-        const id = Number(req.params.id);
-        const user = fetchUser(id);
-
-        if (!user) {
-            return res.status(404).json({
-                message: "Utilisateur introuvable",
-            });
-        }
-
-        db.prepare("DELETE FROM users WHERE id = ? AND isRegistered = ?").run(
-            id,
-            0
-        );
-
-        return res.status(200).json({
-            message: "Utilisateur supprimé avec succès",
-        });
-    } catch (error) {
-        return res.status(500).json({
-            error,
-            message: "An error occurred while deleting the user",
-        });
-    }
-}
-
-function deleteDailyUsers(req: Request, res: Response) {
-    try {
-        const users = fetchUsers();
-        const isRegistered = 0;
-        console.log(users);
-        if (users.length === 0) {
-            return res.status(404).json({
-                message: "Aucun utilisateur trouvé",
-            });
-        }
-
-        db.prepare("DELETE * FROM users WHERE isRegistered = ?").run(
-            isRegistered
-        );
-
-        return res.status(200).json({
-            message: "Utilisateurs supprimés avec succès",
-        });
-    } catch (error) {
-        return res.status(500).json({
-            error,
-            message: "An error occurred while deleting the users",
-        });
-    }
-}
 
 export {
     fetchUser,
     fetchUsers,
     createUser,
-    createDailyUser,
     getUsers,
     getUserById,
     updateUserUsername,
     updateUserScore,
-    deleteUser,
-    deleteDailyUser,
-    deleteDailyUsers,
+    deleteUser
 };

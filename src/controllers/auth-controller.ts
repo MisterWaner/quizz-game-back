@@ -31,7 +31,7 @@ export async function login(req: Request, res: Response) {
     } catch (error) {
         return res.status(500).json({
             error,
-            message: "An error occurred while logging in",
+            message: "Impossibilité de se connecter",
         });
     }
 }
