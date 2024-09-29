@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAdditions, getMathQuestions, getMultiplications, getSubstractions } from "../controllers/quizz-controller";
+import {getAdditions, getMathQuestions, getMultiplications, getSubstractions} from "../controllers/quizz-getters";
 
 const algebraRouter = Router();
 

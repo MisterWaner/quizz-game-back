@@ -9,7 +9,7 @@ cron.schedule("0 0 * * *", () => {
     const users = fetchUsers();
     users.forEach((user) => {
         db.prepare(
-            "UPDATE users SET global_score = global_score + score, score = 0 WHERE id = ?"
+            "UPDATE users SET current_month_score = current_month_score + score, score = 0 WHERE id = ?"
         ).run(user.id);
     });
     console.log("Scores journaliers réinitialisés");
@@ -20,9 +20,11 @@ cron.schedule("0 0 1 * *", () => {
     const users = fetchUsers();
     users.forEach((user) => {
         db.prepare(
-            "UPDATE users SET global_score = 0 WHERE id = ?"
+            "UPDATE users SET last_month_score = current_month_score + last_month_score WHERE id = ?"
         ).run(user.id);
+        db.prepare("UPDATE users SET current_month_score = 0 WHERE id = ?").run(
+            user.id
+        );
     });
-    console.log("Scores globaux réinitialisés");
+    console.log("Scores mensuels réinitialisés");
 });
-
