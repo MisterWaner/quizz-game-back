@@ -13,7 +13,7 @@ function fetchUsersDailyScore(): User[] {
 
 function fetchUsersGlobalScore(): User[] {
     return db
-        .prepare("SELECT * FROM users ORDER BY global_score DESC")
+        .prepare("SELECT * FROM users ORDER BY current_month_score DESC")
         .all() as User[];
 }
 
@@ -25,7 +25,7 @@ function fetchTop5DailyScore(): User[] {
 
 function fetchTop5GlobalScore(): User[] {
     return db
-        .prepare("SELECT * FROM users ORDER BY global_score DESC LIMIT 5")
+        .prepare("SELECT * FROM users ORDER BY current_month_score DESC LIMIT 5")
         .all() as User[];
 }
 

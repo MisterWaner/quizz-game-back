@@ -166,6 +166,38 @@ async function updateUserScore(req: Request, res: Response) {
     }
 }
 
+async function updateUserCurrentMonthScore(req: Request, res: Response) {
+    try {
+        const { userId } = req.body as {
+            userId: number;
+        };
+
+        const user = fetchUser(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "Utilisateur introuvable",
+            });
+        }
+
+        const updatedMonthScore = user.current_month_score + user.score;
+
+        const updatedUser = db
+            .prepare(
+                "UPDATE users SET current_month_score = ?, score = 0 WHERE id = ?"
+            )
+            .run(updatedMonthScore, userId);
+
+        return res.status(200).json({
+            message: "Score mis à jour avec succès",
+            updatedUser,
+        });
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour du score", error);
+        return res.status(500).send("Erreur serveur");
+    }
+}
+
 function deleteUser(req: Request, res: Response) {
     try {
         const id = Number(req.params.id);
@@ -193,7 +225,6 @@ function deleteUser(req: Request, res: Response) {
     }
 }
 
-
 export {
     fetchUser,
     fetchUsers,
@@ -202,5 +233,6 @@ export {
     getUserById,
     updateUserUsername,
     updateUserScore,
-    deleteUser
+    updateUserCurrentMonthScore,
+    deleteUser,
 };
