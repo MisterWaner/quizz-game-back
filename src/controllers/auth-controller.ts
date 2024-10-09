@@ -40,8 +40,7 @@ export async function logout(req: Request, res: Response) {
     try {
         res.clearCookie("token", {
             httpOnly: true,
-            secure: true,
-            expires: new Date(0),
+            secure: true
         });
         return res.status(200).json("Déconnexion réussie");
     } catch (error) {
