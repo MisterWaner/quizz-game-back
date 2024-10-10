@@ -9,6 +9,7 @@ import algebraRouter from "./routers/quizz-router";
 import userRouter from "./routers/user-router";
 import authRouter from "./routers/auth-router";
 import scoreRouter from "./routers/score-router";
+import subjectRouter from "./routers/subject-router";
 
 config();
 
@@ -35,6 +36,7 @@ app.use("/algebra", algebraRouter);
 app.use("/users", userRouter);
 app.use("/scores", scoreRouter);
 app.use("/auth", authRouter);
+app.use("/subjects", subjectRouter);
 
 app.listen(port, () => {
     console.log(`Server démarré sur le port ${port}`);

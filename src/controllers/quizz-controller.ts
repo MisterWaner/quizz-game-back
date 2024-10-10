@@ -1,10 +1,10 @@
-import { Question } from "../types";
-import { subjects } from "../lib/subjectsData";
+import { Question, Subject } from "../types";
+import { fetchSubjects } from "../controllers/subject-controller";
 
 export class MathQuestions {
-    constructor() {}
+    subjects: Subject[] = fetchSubjects();
     generateRandomAddition = (): Question => {
-        const subjectId = subjects[0].id;
+        const subjectId = this.subjects[0].id;
         const id = Math.floor(Math.random() * 1000);
         const number1: number = Math.floor(Math.random() * 100);
         const number2: number = Math.floor(Math.random() * 100);
@@ -14,7 +14,7 @@ export class MathQuestions {
         return { id, question, answer, subject_id: subjectId };
     };
     generateRandomSubstraction = (): Question => {
-        const subjectId = subjects[0].id;
+        const subjectId = this.subjects[0].id;
         const id = Math.floor(Math.random() * 1000);
         let number1: number = Math.floor(Math.random() * 100);
         let number2: number = Math.floor(Math.random() * 100);
@@ -30,7 +30,7 @@ export class MathQuestions {
         return { id, question, answer, subject_id: subjectId };
     };
     generateRandomMultiplication = (): Question => {
-        const subjectId = subjects[0].id;
+        const subjectId = this.subjects[0].id;
         const id = Math.floor(Math.random() * 1000);
         const number1: number = Math.floor(Math.random() * 10);
         const number2: number = Math.floor(Math.random() * 10);
@@ -40,6 +40,7 @@ export class MathQuestions {
         return { id, question, answer, subject_id: subjectId };
     };
     generateRandomMathQuestion = (): Question => {
+        const subjectId = this.subjects[0].id;
         const type: number = Math.floor(Math.random() * 3);
         let question: Question;
 
@@ -58,8 +59,16 @@ export class MathQuestions {
                 break;
         }
 
-        return question;
+        return { ...question, subject_id: subjectId };
     };
 }
 
+export class GeometryQuestions {
+    subjects: Subject[] = fetchSubjects();
 
+    generateAreaAndPerimeterQuestion = (): Question => {
+        const subjectId = this.subjects[1].id;
+        
+        return {}
+    }
+}

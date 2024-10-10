@@ -1,11 +1,11 @@
 import sql from "better-sqlite3";
 import { Request, Response } from "express";
-import { User, DailyUser } from "../types";
+import { User } from "../types";
 import { hashPassword } from "../lib/helpers";
 
 const db = sql("quizz.db");
 
-function fetchUsers(): User[] | DailyUser[] {
+function fetchUsers(): User[] {
     return db.prepare("SELECT * FROM users").all() as User[];
 }
 
