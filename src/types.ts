@@ -5,6 +5,14 @@ export type Question = {
     subject_id: number;
 }
 
+export type QCMQuestion = {
+    id: number;
+    question: string;
+    options: string[];
+    correct_answer: string;
+    subject_id: number;
+}
+
 export type User = {
     id?: number,
     username: string,

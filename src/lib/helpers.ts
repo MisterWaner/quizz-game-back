@@ -71,3 +71,7 @@ export async function verifyToken(req: Request, res: Response, next: NextFunctio
         return res.status(401).json({ message: "Token invalide" });
     }
 }
+
+export function shuffleArray<T>(array: T[]): T[] {
+    return array.sort(() => Math.random() - 0.5);
+}

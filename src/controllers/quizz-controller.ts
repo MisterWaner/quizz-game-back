@@ -1,5 +1,6 @@
-import { Question, Subject } from "../types";
+import { Question, Subject, QCMQuestion } from "../types";
 import { fetchSubjects } from "../controllers/subject-controller";
+import { shuffleArray } from "../lib/helpers";
 
 export class MathQuestions {
     subjects: Subject[] = fetchSubjects();
@@ -66,9 +67,86 @@ export class MathQuestions {
 export class GeometryQuestions {
     subjects: Subject[] = fetchSubjects();
 
-    generateAreaAndPerimeterQuestion = (): Question => {
+    generateAreaQuestion = (): QCMQuestion => {
         const subjectId = this.subjects[1].id;
+        let question = ``;
+        const id = Math.floor(Math.random() * 1000);
+        const side1: number = Math.floor(Math.random() * 10);
+        const side2: number = Math.floor(Math.random() * 10);
+        const correctAnswer = side1 * side2;
+        let options = [
+            correctAnswer.toString() + "m²",
+            (side1 + side2).toString() + "m²",
+            (side1 * side2 + 10).toString() + "m²",
+            (side1 * side2 - 10).toString() + "m²",
+        ]
+        options = shuffleArray(options);
+
+        if (side1 === side2) {
+            question = `Quelle est l'aire d'un carré de ${side1}m de côté ?`;
+        } else {
+            question = `Quelle est l'aire d'un rectangle de ${side1}m de long et ${side2}m de large ?`;
+        }
+
+        return {
+            question,
+            options: options,
+            correct_answer: correctAnswer.toString() + "m²",
+            subject_id: subjectId,
+            id,
+        };
+    };
+
+    generatePerimeterQuestion = (): QCMQuestion => {
+        const subjectId = this.subjects[1].id;
+        let question = ``;
+        let correctAnswer: number;
+        const id = Math.floor(Math.random() * 1000);
+        const side1: number = Math.floor(Math.random() * 10);
+        const side2: number = Math.floor(Math.random() * 10);
         
-        return {}
-    }
+        if (side1 === side2) {
+            question = `Quelle est le perimètre d'un carré de ${side1}m de côté ?`;
+            correctAnswer = 4 * side1;
+        } else {
+            question = `Quelle est le perimètre d'un rectangle de ${side1}m de long et ${side2}m de large ?`;
+            correctAnswer = 2 * (side1 + side2);
+        }
+
+        let options = [
+            correctAnswer.toString() + "m",
+            (correctAnswer + 10).toString() + "m",
+            (correctAnswer - 10).toString() + "m",
+            (correctAnswer / 2).toString() + "m",
+        ]
+        options = shuffleArray(options);
+
+        return {
+            question,
+            options: options,
+            correct_answer: correctAnswer.toString() + "m",
+            subject_id: subjectId,
+            id,
+        }
+    };
+
+    generateAreaAndPerimeterQuestion = (): QCMQuestion => {
+        const subjectId = this.subjects[1].id;
+        const type: number = Math.floor(Math.random() * 3);
+        let question: QCMQuestion;
+
+        switch (type) {
+            case 0:
+                question = this.generateAreaQuestion();
+                break;
+            case 1:
+                question = this.generatePerimeterQuestion();
+                break;
+            default:
+                question = this.generateAreaQuestion();
+                break;
+        }
+
+        return { ...question, subject_id: subjectId };
+    };
 }
