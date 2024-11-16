@@ -2,19 +2,18 @@ import { Router } from "express";
 import {
     getAdditions,
     getAreaAndPerimeterQuestions,
-    getMathQuestions,
+    getRandomCalculations,
     getMultiplications,
     getSubstractions,
 } from "../controllers/quizz-getters";
 
-const algebraRouter = Router();
-const geometryRouter = Router();
+const mathematicsRouter = Router();
 
-algebraRouter.get("/addition", getAdditions);
-algebraRouter.get("/soustraction", getSubstractions);
-algebraRouter.get("/multiplication", getMultiplications);
-algebraRouter.get("/random", getMathQuestions);
+mathematicsRouter.get("/addition", getAdditions);
+mathematicsRouter.get("/soustraction", getSubstractions);
+mathematicsRouter.get("/multiplication", getMultiplications);
+mathematicsRouter.get("/random", getRandomCalculations);
 
-geometryRouter.get("/area-and-perimeter", getAreaAndPerimeterQuestions);
+mathematicsRouter.get("/area-and-perimeter", getAreaAndPerimeterQuestions);
 
-export { algebraRouter, geometryRouter };
+export { mathematicsRouter };

@@ -54,7 +54,7 @@ async function getSubjects(req: Request, res: Response) {
 
         if (subjects.length === 0) {
             return res.status(404).json({
-                message: "Aucun sujet trouvé",
+                message: "Aucune matière trouvée",
             });
         }
 
@@ -75,7 +75,7 @@ async function getSubjectById(req: Request, res: Response) {
 
         if (!subject) {
             return res.status(404).json({
-                message: "Sujet introuvable",
+                message: "matière introuvable",
             });
         }
 
@@ -101,7 +101,7 @@ function updateSubjectName(req: Request, res: Response) {
 
         if (!subject) {
             return res.status(404).json({
-                message: "Sujet introuvable",
+                message: "matière introuvable",
             });
         }
 
@@ -111,7 +111,7 @@ function updateSubjectName(req: Request, res: Response) {
         if (subjectExists) {
             return res
                 .status(400)
-                .json({ message: "Ce nom de sujet existe déjà" });
+                .json({ message: "Ce nom de matière existe déjà" });
         }
 
         db.prepare("UPDATE subjects SET name = ? WHERE id = ?").run(
@@ -137,7 +137,7 @@ async function deleteSubject(req: Request, res: Response) {
 
         if (!subject) {
             return res.status(404).json({
-                message: "Sujet introuvable",
+                message: "matière introuvable",
             });
         }
 
@@ -147,7 +147,7 @@ async function deleteSubject(req: Request, res: Response) {
         );
 
         return res.status(200).json({
-            message: "Sujet supprimé avec succès",
+            message: "matière supprimée avec succès",
         });
     } catch (error) {
         return res.status(500).json({

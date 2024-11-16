@@ -2,7 +2,7 @@ import { Question, Subject, QCMQuestion } from "../types";
 import { fetchSubjects } from "../controllers/subject-controller";
 import { shuffleArray } from "../lib/helpers";
 
-export class MathQuestions {
+export class MathematicsQuestions {
     subjects: Subject[] = fetchSubjects();
     generateRandomAddition = (): Question => {
         const subjectId = this.subjects[0].id;
@@ -12,7 +12,7 @@ export class MathQuestions {
         const question = `Quel est le résultat de ${number1} + ${number2} ?`;
         const answer = (number1 + number2).toString();
 
-        return { id, question, answer, subject_id: subjectId };
+        return { id, question, correct_answer: answer, subject_id: subjectId };
     };
     generateRandomSubstraction = (): Question => {
         const subjectId = this.subjects[0].id;
@@ -28,7 +28,7 @@ export class MathQuestions {
         const question = `Quel est le résultat de ${number1} - ${number2} ?`;
         const answer = (number1 - number2).toString();
 
-        return { id, question, answer, subject_id: subjectId };
+        return { id, question, correct_answer: answer, subject_id: subjectId };
     };
     generateRandomMultiplication = (): Question => {
         const subjectId = this.subjects[0].id;
@@ -38,9 +38,9 @@ export class MathQuestions {
         const question = `Quel est le résultat de ${number1} x ${number2} ?`;
         const answer = (number1 * number2).toString();
 
-        return { id, question, answer, subject_id: subjectId };
+        return { id, question, correct_answer: answer, subject_id: subjectId };
     };
-    generateRandomMathQuestion = (): Question => {
+    generateRandomCalculation = (): Question => {
         const subjectId = this.subjects[0].id;
         const type: number = Math.floor(Math.random() * 3);
         let question: Question;
@@ -62,13 +62,9 @@ export class MathQuestions {
 
         return { ...question, subject_id: subjectId };
     };
-}
-
-export class GeometryQuestions {
-    subjects: Subject[] = fetchSubjects();
 
     generateAreaQuestion = (): QCMQuestion => {
-        const subjectId = this.subjects[1].id;
+        const subjectId = this.subjects[0].id;
         let question = ``;
         const id = Math.floor(Math.random() * 1000);
         const side1: number = Math.floor(Math.random() * 10);
@@ -79,7 +75,7 @@ export class GeometryQuestions {
             (side1 + side2).toString() + "m²",
             (side1 * side2 + 10).toString() + "m²",
             (side1 * side2 - 10).toString() + "m²",
-        ]
+        ];
         options = shuffleArray(options);
 
         if (side1 === side2) {
@@ -98,13 +94,13 @@ export class GeometryQuestions {
     };
 
     generatePerimeterQuestion = (): QCMQuestion => {
-        const subjectId = this.subjects[1].id;
+        const subjectId = this.subjects[0].id;
         let question = ``;
         let correctAnswer: number;
         const id = Math.floor(Math.random() * 1000);
         const side1: number = Math.floor(Math.random() * 10);
         const side2: number = Math.floor(Math.random() * 10);
-        
+
         if (side1 === side2) {
             question = `Quelle est le perimètre d'un carré de ${side1}m de côté ?`;
             correctAnswer = 4 * side1;
@@ -118,7 +114,7 @@ export class GeometryQuestions {
             (correctAnswer + 10).toString() + "m",
             (correctAnswer - 10).toString() + "m",
             (correctAnswer / 2).toString() + "m",
-        ]
+        ];
         options = shuffleArray(options);
 
         return {
@@ -127,11 +123,11 @@ export class GeometryQuestions {
             correct_answer: correctAnswer.toString() + "m",
             subject_id: subjectId,
             id,
-        }
+        };
     };
 
     generateAreaAndPerimeterQuestion = (): QCMQuestion => {
-        const subjectId = this.subjects[1].id;
+        const subjectId = this.subjects[0].id;
         const type: number = Math.floor(Math.random() * 3);
         let question: QCMQuestion;
 

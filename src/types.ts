@@ -1,7 +1,7 @@
 export type Question = {
     id: number;
     question: string;
-    answer: string | string[];
+    correct_answer: string;
     subject_id: number;
 }
 

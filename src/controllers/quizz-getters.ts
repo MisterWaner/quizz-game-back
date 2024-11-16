@@ -1,13 +1,13 @@
-import { MathQuestions, GeometryQuestions } from "./quizz-controller";
+import { MathematicsQuestions } from "./math-controller";
 import { Request, Response } from "express";
 import { Question, QCMQuestion } from "../types";
 
-const mathQuestions = new MathQuestions();
-const geometryQuestions = new GeometryQuestions();
+const mathematicsQuestions = new MathematicsQuestions();
+
 export const getAdditions = (req: Request, res: Response) => {
     const questions: Question[] = Array.from(
         { length: 10 },
-        mathQuestions.generateRandomAddition
+        mathematicsQuestions.generateRandomAddition
     );
     return res.json(questions);
 };
@@ -15,7 +15,7 @@ export const getAdditions = (req: Request, res: Response) => {
 export const getSubstractions = (req: Request, res: Response) => {
     const questions: Question[] = Array.from(
         { length: 10 },
-        mathQuestions.generateRandomSubstraction
+        mathematicsQuestions.generateRandomSubstraction
     );
     return res.json(questions);
 };
@@ -23,15 +23,15 @@ export const getSubstractions = (req: Request, res: Response) => {
 export const getMultiplications = (req: Request, res: Response) => {
     const questions: Question[] = Array.from(
         { length: 10 },
-        mathQuestions.generateRandomMultiplication
+        mathematicsQuestions.generateRandomMultiplication
     );
     return res.json(questions);
 };
 
-export const getMathQuestions = (req: Request, res: Response) => {
+export const getRandomCalculations = (req: Request, res: Response) => {
     const questions: Question[] = Array.from(
         { length: 10 },
-        mathQuestions.generateRandomMathQuestion
+        mathematicsQuestions.generateRandomCalculation
     );
     return res.json(questions);
 };
@@ -39,7 +39,7 @@ export const getMathQuestions = (req: Request, res: Response) => {
 export const getAreaAndPerimeterQuestions = (req: Request, res: Response) => {
     const questions: QCMQuestion[] = Array.from(
         { length: 10 },
-        geometryQuestions.generateAreaAndPerimeterQuestion
+        mathematicsQuestions.generateAreaAndPerimeterQuestion
     );
 
     return res.json(questions);
